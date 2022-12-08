@@ -3,23 +3,24 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import React from 'react'
 
+type cryptoItemType = {
+  id: string
+  rank: string
+  symbol: string
+  name: string
+  supply: string
+  maxSupply: string
+  marketCapUsd: string
+  volumeUsd24Hr: string
+  priceUsd: string
+  changePercent24Hr: string
+  vwap24Hr: string
+  explorer: string
+}
 export function App(): any {
-  type cryptoItemType = {
-    id: string
-    rank: string
-    symbol: string
-    name: string
-    supply: string
-    maxSupply: string
-    marketCapUsd: string
-    volumeUsd24Hr: string
-    priceUsd: string
-    changePercent24Hr: string
-    vwap24Hr: string
-    explorer: string
-  }
   const [cryptoList, setCryptoList] = useState<cryptoItemType[]>([])
 
+  // Load the list of cryptocurrency items from the API
   async function loadItems() {
     const response = await axios.get('https://api.coincap.io/v2/assets')
 
@@ -28,6 +29,7 @@ export function App(): any {
     }
   }
 
+  // Load the crypto items on mount and refresh the list every 10 seconds
   useEffect(() => {
     let interval = setInterval(loadItems, 10000)
     loadItems()
@@ -56,7 +58,7 @@ export function App(): any {
               <th>Explorer</th>
             </tr>
           </thead>
-          <thead>
+          <tbody>
             {cryptoList.map(function (cryptoItem) {
               return (
                 <tr key={cryptoItem.id}>
@@ -72,11 +74,13 @@ export function App(): any {
                     {cryptoItem.changePercent24Hr}
                   </td>
                   <td key="vwap24Hr">{cryptoItem.vwap24Hr}</td>
-                  <td key="explorer">{cryptoItem.explorer}</td>
+                  <td key="explorer">
+                    <a href={cryptoItem.explorer}>{cryptoItem.explorer}</a>
+                  </td>
                 </tr>
               )
             })}
-          </thead>
+          </tbody>
         </table>
       </div>
     </div>
