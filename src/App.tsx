@@ -64,7 +64,13 @@ export function App(): any {
                 <tr key={cryptoItem.id}>
                   <td key="rank">{cryptoItem.rank}</td>
                   <td key="symbol">{cryptoItem.symbol}</td>
-                  <td key="name">{cryptoItem.name}</td>
+
+                  <td key="name">
+                    <img
+                      src={`https://raw.githubusercontent.com/condacore/cryptocurrency-icons/master/32x32/${cryptoItem.name.toLowerCase()}.png`}
+                    />
+                    {cryptoItem.name}
+                  </td>
                   <td key="supply">{cryptoItem.supply}</td>
                   <td key="maxSupply">{cryptoItem.maxSupply}</td>
                   <td key="marketCapUsd">{cryptoItem.marketCapUsd}</td>
