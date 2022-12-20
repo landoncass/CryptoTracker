@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
 import React from 'react'
+import { useRef } from 'react'
+import { TrackedPrice } from './TrackedPrice'
 
 type cryptoItemType = {
   id: string
@@ -73,9 +75,13 @@ export function App(): any {
                   </td>
                   <td key="supply">{cryptoItem.supply}</td>
                   <td key="maxSupply">{cryptoItem.maxSupply}</td>
-                  <td key="marketCapUsd">{cryptoItem.marketCapUsd}</td>
+                  <td key="marketCapUsd">
+                    <TrackedPrice price={cryptoItem.marketCapUsd} />
+                  </td>
                   <td key="volumeUsd24Hr">{cryptoItem.volumeUsd24Hr}</td>
-                  <td key="priceUsd">{cryptoItem.priceUsd}</td>
+                  <td key="priceUsd">
+                    <TrackedPrice price={cryptoItem.priceUsd} />
+                  </td>
                   <td key="changePercent24Hr">
                     {cryptoItem.changePercent24Hr}
                   </td>
